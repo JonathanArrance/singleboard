@@ -6,7 +6,7 @@ import Adafruit_DHT
 import settings
 
 #get the sensor
-sensor = settings.SENSORTYPE
+sensor = 'Adafruit_DHT.'+settings.SENSORTYPE
 
 #Pins where DHT11 sensors connected
 pins = ['22','23','4']
