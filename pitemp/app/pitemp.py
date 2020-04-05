@@ -17,7 +17,7 @@ while True:
         try:
             humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
             temp_scale = 'C'
-            if(settings.SCALE == 'Fahrenheit')
+            if(settings.SCALE == 'Fahrenheit'):
                 temperature = temperature * 9/5.0 + 32
                 temp_scale = 'F'
             humidity = dhtDevice.humidity
