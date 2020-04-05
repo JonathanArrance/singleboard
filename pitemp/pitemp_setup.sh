@@ -19,4 +19,7 @@ sudo pip3 install adafruit-blinka
 sudo pip3 install adafruit-circuitpython-dht
 sudo pip3 install schedule
 
-sudo apt-get install libgpiod2
+sudo apt install -y python-smbus
+sudo apt-get install -y libgpiod2
+sudo apt install -y i2c-tools
+

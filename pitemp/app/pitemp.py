@@ -1,25 +1,27 @@
 #!/bin/python
 #rpi based temp monitoring and alerting
 import time
-import board
-import adafruit_dht
+#import board
+import Adafruit_DHT
+import settings
+
+#get the sensor
+sensor = settings.SENSORTYPE
 
 #Pins where DHT11 sensors connected
-pins = ['22','23','24']
+pins = ['22','23','4']
 
 #lets print the output of the sensors
 while True:
     for pin in pins:
-        dhtDevice = adafruit_dht.DHT11(board.D%s)%(pin)
         try:
-            temperature_c = dhtDevice.emperature
-            temperature_f = temperature_c * (9 / 5) + 32
+            humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+            temp_scale = 'C'
+            if(settings.SCALE == 'Fahrenheit')
+                temperature = temperature * 9/5.0 + 32
+                temp_scale = 'F'
             humidity = dhtDevice.humidity
-            print(
-                "Temp: {:.1f} F / {:.1f} C    Humidity: {}% ".format(
-                    temperature_f, temperature_c, humidity
-                )
-            )
+            print( "Temp: {:.1f} {}   Humidity: {}% ".format(temperature, temp_scale, humidity))
         except RuntimeError as error:
             print(error.args[0])
     time.sleep(2)
