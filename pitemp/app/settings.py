@@ -10,3 +10,10 @@ PINS = ['24','23','4']
 
 #Time to sleep in seconds
 SLEEP = 2
+
+# on the PiOLED this pin isnt used
+RST = None
+
+DC = 23
+SPI_PORT = 0
+SPI_DEVICE = 0

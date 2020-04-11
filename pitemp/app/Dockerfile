@@ -12,3 +12,4 @@ WORKDIR $INSTALL_PATH
 RUN pip3 install --upgrade pip
 ADD requirements.txt /
 RUN pip3 install -r /requirements.txt
+#sudo apt install software-properties-common
