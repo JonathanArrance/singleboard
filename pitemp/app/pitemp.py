@@ -37,7 +37,7 @@ while True:
     #if there is an overheat situation blink the led
 
     #lets keep an eye on the button and change output from stats to temps
-
+    '''
     #disply the to the screen
     # 128x32 display with hardware I2C:
     disp = Adafruit_SSD1306.SSD1306_128_32(rst=settings.RST)
@@ -95,5 +95,6 @@ while True:
     # Display image.
     disp.image(image)
     disp.display()
+    '''
     time.sleep(2)
     
