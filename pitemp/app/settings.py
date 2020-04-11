@@ -4,3 +4,9 @@ SENSORTYPE='DHT11'
 
 #Celcius or Fahrenheit
 SCALE='Fahrenheit'
+
+#The GPIO pins to use for sensors
+PINS = ['24','23','4']
+
+#Time to sleep in seconds
+SLEEP = 2

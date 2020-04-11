@@ -7,9 +7,9 @@ import settings
 
 #get the sensor
 #sensor = 'Adafruit_DHT.'+settings.SENSORTYPE
-sensor = Adafruit_DHT.DHT11
+sensor = Adafruit_DHT.+settings.SENSORTYPE
 #Pins where DHT11 sensors connected
-pins = ['24','23','4']
+pins = settings.PINS
 
 #lets print the output of the sensors
 while True:
@@ -21,11 +21,11 @@ while True:
             if(settings.SCALE == 'Fahrenheit'):
                 temperature = temperature * 9/5.0 + 32
                 temp_scale = 'F'
-            print( "Temp: {:.1f} {}   Humidity: {}% ".format(temperature, temp_scale, humidity))
+            print( "Temp: {:.1f} {} Humidity: {}% ".format(temperature, temp_scale, humidity))
         except RuntimeError as error:
             print(error.args[0])
     print("---------")
-    time.sleep(1)
+    time.sleep(settings.SLEEP)
 
 #if there is an overheat situation blink the led
 
