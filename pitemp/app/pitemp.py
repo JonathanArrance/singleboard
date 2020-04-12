@@ -4,8 +4,8 @@ import time
 import multiprocessing
 import subprocess
 import Adafruit_DHT
-#import Adafruit_GPIO.SPI as SPI
-#import Adafruit_SSD1306
+import Adafruit_GPIO.SPI as SPI
+import Adafruit_SSD1306
 import settings
 
 def temp_sensor():
@@ -29,7 +29,7 @@ def temp_sensor():
             #print( "Temp: {:.1f} {} Humidity: {}% ".format(temperature, temp_scale, humidity))
         except RuntimeError as error:
             print(error.args[0])
-    
+    print(output)
     return output
 
 
@@ -38,7 +38,7 @@ def screen(sensor_input):
     #get the pins
     PINS = settings.PINS
     
-    if(settings.SCALE='Fahrenheit'):
+    if(settings.SCALE=='Fahrenheit'):
         temp_scale = 'F'
     else:
         temp_scale = 'C'
@@ -83,17 +83,19 @@ def screen(sensor_input):
     #draw.text((x, top+16),    "Sensor2: Temp %s %s Humidity %s" str(MemUsage),  font=font, fill=255)
     #draw.text((x, top+25),    "Sensor3: Temp %s %s Humidity %s" str(Disk),  font=font, fill=255)
 
+    print(image)
     # Display image.
     disp.image(image)
     disp.display()
 
 if __name__=='__name__':
 
-    while True:
-        #get the temp from the sensors
-        temp = temp_sensor()
+    #while True:
+    #get the temp from the sensors
+    temp = temp_sensor()
+    print(temp)
 
-        #if there is an overheat situation blink the led
-        screen(temp)
-        
-        time.sleep(.1)
+    #if there is an overheat situation blink the led
+    #screen(temp)
+    
+    #time.sleep(.1)
