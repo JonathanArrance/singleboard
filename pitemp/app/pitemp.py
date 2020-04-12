@@ -8,6 +8,10 @@ import Adafruit_GPIO.SPI as SPI
 import Adafruit_SSD1306
 import settings
 
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFont
+
 def temp_sensor():
     #get the sensor
     #sensor = 'Adafruit_DHT.'+settings.SENSORTYPE
@@ -44,7 +48,7 @@ def screen(sensor_input):
         temp_scale = 'C'
     
     # 128x32 display with hardware I2C:
-    disp = Adafruit_SSD1306.SSD1306_128_32(rst=settings.RST)
+    disp = Adafruit_SSD1306.SSD1306_128_64(rst=settings.RST)
 
     # Initialize library.
     disp.begin()
@@ -77,7 +81,7 @@ def screen(sensor_input):
     # Draw a black filled box to clear the image.
     draw.rectangle((0,0,width,height), outline=0, fill=0)
 
-    draw.text((x, top),       "PiTemp", font=font, fill=255)
+    draw.text((x, top),       "PiTemp temperature alert system.", font=font, fill=255)
     draw.text((x, top+8),     "Sensor1: Temp %s %s Humidity %s"%(str('35'),str('F'),str('20')), font=font, fill=255)
     #draw.text((x, top+16),    "Sensor2: Temp %s %s Humidity %s" str(MemUsage),  font=font, fill=255)
     #draw.text((x, top+25),    "Sensor3: Temp %s %s Humidity %s" str(Disk),  font=font, fill=255)
@@ -89,12 +93,12 @@ def screen(sensor_input):
 
 if __name__=='__name__':
 
-    #while True:
-    #get the temp from the sensors
-    temp = temp_sensor()
-    print(temp)
+    while True:
+        #get the temp from the sensors
+        temp = temp_sensor()
+        print(temp)
 
-    #if there is an overheat situation blink the led
-    #screen(temp)
+        #if there is an overheat situation blink the led
+        #screen(temp)
     
-    #time.sleep(.1)
+        time.sleep(.1)
