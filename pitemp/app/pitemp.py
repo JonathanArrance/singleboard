@@ -8,16 +8,15 @@ import Adafruit_DHT
 #import Adafruit_SSD1306
 import settings
 
-#get the sensor
-#sensor = 'Adafruit_DHT.'+settings.SENSORTYPE
-sensor = Adafruit_DHT.DHT11
-#Pins where DHT11 sensors connected
-pins = settings.PINS
+def temp_sensor():
+    #get the sensor
+    #sensor = 'Adafruit_DHT.'+settings.SENSORTYPE
+    sensor = Adafruit_DHT.DHT11
+    #Pins where DHT11 sensors connected
+    pins = settings.PINS
 
-#lets print the output of the sensors
-while True:
-    print("------")
-    out = {}
+    #lets print the output of the sensors
+    output = {}
     for pin in pins:
         try:
             humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
@@ -25,20 +24,25 @@ while True:
             if(settings.SCALE == 'Fahrenheit'):
                 temperature = temperature * 9/5.0 + 32
                 temp_scale = 'F'
-            out['temp_pin%s_%s'%(pin,temp_scale)] = temperature
-            out['humidity_pin%s'%(pin)] = humidity
+            output['temp_pin%s_%s'%(pin,temp_scale)] = temperature
+            output['humidity_pin%s'%(pin)] = humidity
             #print( "Temp: {:.1f} {} Humidity: {}% ".format(temperature, temp_scale, humidity))
         except RuntimeError as error:
             print(error.args[0])
-    print(out)
-    print("---------")
-    #time.sleep(settings.SLEEP)
+    
+    return output
 
-    #if there is an overheat situation blink the led
 
-    #lets keep an eye on the button and change output from stats to temps
-    '''
-    #disply the to the screen
+    
+def screen(sensor_input):
+    #get the pins
+    PINS = settings.PINS
+    
+    if(settings.SCALE='Fahrenheit'):
+        temp_scale = 'F'
+    else:
+        temp_scale = 'C'
+    
     # 128x32 display with hardware I2C:
     disp = Adafruit_SSD1306.SSD1306_128_32(rst=settings.RST)
 
@@ -70,31 +74,26 @@ while True:
 
     # Load default font.
     font = ImageFont.load_default()
-    while True:
+    
+    # Draw a black filled box to clear the image.
+    draw.rectangle((0,0,width,height), outline=0, fill=0)
 
-        # Draw a black filled box to clear the image.
-        draw.rectangle((0,0,width,height), outline=0, fill=0)
-
-        # Shell scripts for system monitoring from here : https://unix.stackexchange.com/questions/119126/command-to-display-memory-usage-disk-usage-and-cpu-load
-        th = "hostname -I | cut -d\' \' -f1"
-        IP = subprocess.check_output(cmd, shell = True )
-        cmd = "top -bn1 | grep load | awk '{printf \"CPU Load: %.2f\", $(NF-2)}'"
-        CPU = subprocess.check_output(cmd, shell = True )
-        cmd = "free -m | awk 'NR==2{printf \"Mem: %s/%sMB %.2f%%\", $3,$2,$3*100/$2 }'"
-        MemUsage = subprocess.check_output(cmd, shell = True )
-        cmd = "df -h | awk '$NF==\"/\"{printf \"Disk: %d/%dGB %s\", $3,$2,$5}'"
-        Disk = subprocess.check_output(cmd, shell = True )
-
-    # Write two lines of text.
-
-    draw.text((x, top),       "IP: " + str(IP),  font=font, fill=255)
-    draw.text((x, top+8),     str(CPU), font=font, fill=255)
-    draw.text((x, top+16),    str(MemUsage),  font=font, fill=255)
-    draw.text((x, top+25),    str(Disk),  font=font, fill=255)
+    draw.text((x, top),       "PiTemp", font=font, fill=255)
+    draw.text((x, top+8),     "Sensor1: Temp %s %s Humidity %s"%(str('35'),str('F'),str('20')), font=font, fill=255)
+    #draw.text((x, top+16),    "Sensor2: Temp %s %s Humidity %s" str(MemUsage),  font=font, fill=255)
+    #draw.text((x, top+25),    "Sensor3: Temp %s %s Humidity %s" str(Disk),  font=font, fill=255)
 
     # Display image.
     disp.image(image)
     disp.display()
-    '''
-    time.sleep(2)
-    
+
+if __name__=='__name__':
+
+    while True:
+        #get the temp from the sensors
+        temp = temp_sensor()
+
+        #if there is an overheat situation blink the led
+        screen(temp)
+        
+        time.sleep(.1)
