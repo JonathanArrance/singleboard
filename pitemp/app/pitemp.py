@@ -4,13 +4,13 @@ import time
 import multiprocessing
 import subprocess
 import Adafruit_DHT
-import Adafruit_GPIO.SPI as SPI
-import Adafruit_SSD1306
+#import Adafruit_GPIO.SPI as SPI
+#import Adafruit_SSD1306
 import settings
 
 #get the sensor
 #sensor = 'Adafruit_DHT.'+settings.SENSORTYPE
-sensor = Adafruit_DHT.+settings.SENSORTYPE
+sensor = Adafruit_DHT.DHT11
 #Pins where DHT11 sensors connected
 pins = settings.PINS
 
@@ -25,12 +25,12 @@ while True:
             if(settings.SCALE == 'Fahrenheit'):
                 temperature = temperature * 9/5.0 + 32
                 temp_scale = 'F'
-            out['temp_%s_%s']%(pin,temp_scale) = temperature
-            out['humidity_%s_%s']%(pin,humidity) = humidity
-            print(out)
+            out['temp_pin%s_%s'%(pin,temp_scale)] = temperature
+            out['humidity_pin%s'%(pin)] = humidity
             #print( "Temp: {:.1f} {} Humidity: {}% ".format(temperature, temp_scale, humidity))
         except RuntimeError as error:
             print(error.args[0])
+    print(out)
     print("---------")
     #time.sleep(settings.SLEEP)
 
