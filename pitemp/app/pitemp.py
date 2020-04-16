@@ -91,7 +91,7 @@ def screen(sensor_input):
     disp.image(image)
     disp.display()
 
-if __name__=='__name__':
+if __name__=='__main__':
 
     while True:
         #get the temp from the sensors
@@ -99,6 +99,7 @@ if __name__=='__name__':
         print(temp)
 
         #if there is an overheat situation blink the led
-        #screen(temp)
+        screen(temp)
     
+        
         time.sleep(.1)
