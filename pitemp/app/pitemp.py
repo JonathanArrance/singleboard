@@ -28,7 +28,8 @@ def temp_sensor():
             if(settings.SCALE == 'Fahrenheit'):
                 temperature = temperature * 9/5.0 + 32
                 temp_scale = 'F'
-            output['temp_pin%s_%s'%(pin,temp_scale)] = temperature
+            output['temp_pin%s'%(pin)] = temperature
+            output['%s'%(temp_scale)]
             output['humidity_pin%s'%(pin)] = humidity
             #print( "Temp: {:.1f} {} Humidity: {}% ".format(temperature, temp_scale, humidity))
         except RuntimeError as error:
@@ -81,12 +82,11 @@ def screen(sensor_input):
     # Draw a black filled box to clear the image.
     draw.rectangle((0,0,width,height), outline=0, fill=0)
 
-    draw.text((x, top),       "PiTemp temperature alert system.", font=font, fill=255)
-    draw.text((x, top+8),     "Sensor1: Temp %s %s Humidity %s"%(str('35'),str('F'),str('20')), font=font, fill=255)
-    #draw.text((x, top+16),    "Sensor2: Temp %s %s Humidity %s" str(MemUsage),  font=font, fill=255)
-    #draw.text((x, top+25),    "Sensor3: Temp %s %s Humidity %s" str(Disk),  font=font, fill=255)
+    draw.text((x, top),       "PiTemp.", font=font, fill=255)
+    draw.text((x, top+16),    "Sensor1: Temp %s %s Humidity %s"%(str(temp_pinPIN[0]),temp_scale,str(humidity_pinPIN[0])), font=font, fill=255)
+    draw.text((x, top+24),    "Sensor2: Temp %s %s Humidity %s"%(str(temp_pinPIN[1]),temp_scale,str(humidity_pinPIN[1])),  font=font, fill=255)
+    draw.text((x, top+32),    "Sensor3: Temp %s %s Humidity %s"%(str(temp_pinPIN[2]),temp_scale,str(humidity_pinPIN[2])),  font=font, fill=255)
 
-    print(image)
     # Display image.
     disp.image(image)
     disp.display()
@@ -96,10 +96,6 @@ if __name__=='__main__':
     while True:
         #get the temp from the sensors
         temp = temp_sensor()
-        print(temp)
-
         #if there is an overheat situation blink the led
         screen(temp)
-    
-        
-        time.sleep(.1)
+        time.sleep(5)
