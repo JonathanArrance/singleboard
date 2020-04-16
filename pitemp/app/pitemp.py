@@ -34,12 +34,12 @@ def temp_sensor():
             #print( "Temp: {:.1f} {} Humidity: {}% ".format(temperature, temp_scale, humidity))
         except RuntimeError as error:
             print(error.args[0])
-    print(output)
     return output
 
 
     
 def screen(sensor_input):
+    print(sensor_input)
     #get the pins
     PINS = settings.PINS
     
@@ -83,9 +83,10 @@ def screen(sensor_input):
     draw.rectangle((0,0,width,height), outline=0, fill=0)
 
     draw.text((x, top),       "PiTemp.", font=font, fill=255)
-    draw.text((x, top+16),    "Sensor1: Temp %s %s Humidity %s"%(sensor_input['temp_pin%s']%(str(PIN[0])),sensor_input['temp_scale'],sensor_input['humidity_pin%s']%(str(PIN[0]))), font=font, fill=255)
-    draw.text((x, top+24),    "Sensor2: Temp %s %s Humidity %s"%(sensor_input['temp_pin%s']%(str(PIN[1])),sensor_input['temp_scale'],sensor_input['humidity_pin%s']%(str(PIN[1]))),  font=font, fill=255)
-    draw.text((x, top+32),    "Sensor3: Temp %s %s Humidity %s"%(sensor_input['temp_pin%s']%(str(PIN[2])),sensor_input['temp_scale'],sensor_input['humidity_pin%s']%(str(PIN[2]))),  font=font, fill=255)
+    draw.text((x, top+16),    "Sensor1: Temp "+sensor_input['temp_pin%s']%(str(PIN[0]))+" "+sensor_input['temp_scale']+" Humidity "+sensor_input['humidity_pin%s']%(str(PIN[0])), font=font, fill=255
+    #draw.text((x, top+16),    "Sensor1: Temp %s %s Humidity %s"%(sensor_input['temp_pin%s']%(str(PIN[0])),sensor_input['temp_scale'],sensor_input['humidity_pin%s']%(str(PIN[0]))), font=font, fill=255)
+    #draw.text((x, top+24),    "Sensor2: Temp %s %s Humidity %s"%(sensor_input['temp_pin%s']%(str(PIN[1])),sensor_input['temp_scale'],sensor_input['humidity_pin%s']%(str(PIN[1]))),  font=font, fill=255)
+    #draw.text((x, top+32),    "Sensor3: Temp %s %s Humidity %s"%(sensor_input['temp_pin%s']%(str(PIN[2])),sensor_input['temp_scale'],sensor_input['humidity_pin%s']%(str(PIN[2]))),  font=font, fill=255)
 
     # Display image.
     disp.image(image)
