@@ -83,9 +83,9 @@ def screen(sensor_input):
     draw.rectangle((0,0,width,height), outline=0, fill=0)
 
     draw.text((x, top),       "PiTemp.", font=font, fill=255)
-    draw.text((x, top+16),    "Sensor1: Temp %s %s Humidity %s"%(str(temp_pinPIN[0]),temp_scale,str(humidity_pinPIN[0])), font=font, fill=255)
-    draw.text((x, top+24),    "Sensor2: Temp %s %s Humidity %s"%(str(temp_pinPIN[1]),temp_scale,str(humidity_pinPIN[1])),  font=font, fill=255)
-    draw.text((x, top+32),    "Sensor3: Temp %s %s Humidity %s"%(str(temp_pinPIN[2]),temp_scale,str(humidity_pinPIN[2])),  font=font, fill=255)
+    draw.text((x, top+16),    "Sensor1: Temp %s %s Humidity %s"%(sensor_input['temp_pin%s']%(str(PIN[0])),sensor_input['temp_scale'],sensor_input['humidity_pin%s']%(str(PIN[0]))), font=font, fill=255)
+    draw.text((x, top+24),    "Sensor2: Temp %s %s Humidity %s"%(sensor_input['temp_pin%s']%(str(PIN[1])),sensor_input['temp_scale'],sensor_input['humidity_pin%s']%(str(PIN[1]))),  font=font, fill=255)
+    draw.text((x, top+32),    "Sensor3: Temp %s %s Humidity %s"%(sensor_input['temp_pin%s']%(str(PIN[2])),sensor_input['temp_scale'],sensor_input['humidity_pin%s']%(str(PIN[2]))),  font=font, fill=255)
 
     # Display image.
     disp.image(image)
