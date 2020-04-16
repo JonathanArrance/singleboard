@@ -29,7 +29,7 @@ def temp_sensor():
                 temperature = temperature * 9/5.0 + 32
                 temp_scale = 'F'
             output['temp_pin%s'%(pin)] = temperature
-            output['%s'%(temp_scale)]
+            output['temp_scale'] = temp_scale
             output['humidity_pin%s'%(pin)] = humidity
             #print( "Temp: {:.1f} {} Humidity: {}% ".format(temperature, temp_scale, humidity))
         except RuntimeError as error:
