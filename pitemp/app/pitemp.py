@@ -41,7 +41,7 @@ def temp_sensor():
 def screen(sensor_input):
     print(sensor_input)
     #get the pins
-    PINS = settings.PINS
+    PIN = settings.PINS
     
     if(settings.SCALE=='Fahrenheit'):
         temp_scale = 'F'
