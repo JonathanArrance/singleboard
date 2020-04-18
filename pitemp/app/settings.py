@@ -14,6 +14,9 @@ SLEEP = 2
 # on the PiOLED this pin isnt used
 RST = None
 
-DC = 23
-SPI_PORT = 0
-SPI_DEVICE = 0
+#The time interval
+INTERVAL = 1
+
+#DC = 23
+#SPI_PORT = 0
+#SPI_DEVICE = 0
