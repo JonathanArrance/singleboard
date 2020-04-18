@@ -106,20 +106,14 @@ def screen_output():
 
         draw.text((x, top),       "PiTemp.", font=font, fill=255)
         draw.text((x, top+16),    "S1: "+str(output['temp_pin%s'%(str(PIN[0]))])+""+output['temp_scale']+" Hum "+str(output['humidity_pin%s'%(str(PIN[0]))]), font=font, fill=255)
-        #draw.text((x, top+16),    "Sensor1: Temp %s %s Humidity %s"%(sensor_input['temp_pin%s']%(str(PIN[0])),sensor_input['temp_scale'],sensor_input['humidity_pin%s']%(str(PIN[0]))), font=font, fill=255)
-        #draw.text((x, top+24),    "Sensor2: Temp %s %s Humidity %s"%(sensor_input['temp_pin%s']%(str(PIN[1])),sensor_input['temp_scale'],sensor_input['humidity_pin%s']%(str(PIN[1]))),  font=font, fill=255)
-        #draw.text((x, top+32),    "Sensor3: Temp %s %s Humidity %s"%(sensor_input['temp_pin%s']%(str(PIN[2])),sensor_input['temp_scale'],sensor_input['humidity_pin%s']%(str(PIN[2]))),  font=font, fill=255)
-
+        draw.text((x, top+25),    "S2: "+str(output['temp_pin%s'%(str(PIN[1]))])+""+output['temp_scale']+" Hum "+str(output['humidity_pin%s'%(str(PIN[1]))]), font=font, fill=255)
+        draw.text((x, top+33),    "S3: "+str(output['temp_pin%s'%(str(PIN[2]))])+""+output['temp_scale']+" Hum "+str(output['humidity_pin%s'%(str(PIN[2]))]), font=font, fill=255)
+        
         # Display image.
         disp.image(image)
         disp.display()
 
 if __name__=='__main__':
+    #Run the function
     schedule.every(settings.INTERVAL).seconds.do(screen_output())
 
-    #while True:
-        #get the temp from the sensors
-    #    shedule.run_pending()
-        #if there is an overheat situation blink the led
-        #screen(temp)
-        #time.sleep(5)
