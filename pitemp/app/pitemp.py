@@ -86,7 +86,7 @@ def screen_output():
 
     while True:
         #lets print the output of the sensors
-        self.output = {}
+        output = {}
         for pin in PIN:
             try:
                 humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
@@ -94,9 +94,9 @@ def screen_output():
                 if(settings.SCALE == 'Fahrenheit'):
                     temperature = temperature * 9/5.0 + 32
                     temp_scale = 'F'
-                self.output['temp_pin%s'%(pin)] = temperature
-                self.output['temp_scale'] = temp_scale
-                self.output['humidity_pin%s'%(pin)] = humidity
+                output['temp_pin%s'%(pin)] = temperature
+                output['temp_scale'] = temp_scale
+                output['humidity_pin%s'%(pin)] = humidity
                 #print( "Temp: {:.1f} {} Humidity: {}% ".format(temperature, temp_scale, humidity))
             except RuntimeError as error:
                 print(error.args[0])
