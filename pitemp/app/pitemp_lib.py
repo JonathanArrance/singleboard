@@ -16,7 +16,7 @@ def get_nic_ip_info(nic):
 	try:
 		proc = subprocess.Popen("ip addr | grep '%s' -A2 | grep 'inet' | head -1 | awk '{print $2}' | cut -f1  -d'/'"%nic, stdout=subprocess.PIPE, shell=True)
 		(output,err) = proc.communicate()
-		ip = str(output).strip()
+		ip = str(output.decode('ascii').strip())
 	except Exception as e:
 		ip = e
 
