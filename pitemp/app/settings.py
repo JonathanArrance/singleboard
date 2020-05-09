@@ -18,7 +18,7 @@ RST = None
 INTERVAL = 1
 
 #physical network name
-PHYSNET = 'eth0'
+PHYSNET = 'wlan0'
 
 #DC = 23
 #SPI_PORT = 0

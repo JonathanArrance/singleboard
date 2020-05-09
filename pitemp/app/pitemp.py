@@ -107,9 +107,12 @@ def screen_output():
         dt = datetime.datetime.now()
         # Draw a black filled box to clear the image.
         draw.rectangle((0,0,width,height), outline=0, fill=0)
-        print(ip_addr)
-        #draw.text((x, top),       "Time: "+dt.strftime('%H:%M:%S'), font=font, fill=255)
-        #draw.text((x, top+8),     "IP: "+ip_addr['ip'], font=font, fill=255)
+        draw.text((x, top),"Time: "+dt.strftime('%H:%M:%S'), font=font, fill=255)
+        draw.text((x, top+8),"IP: "+ip_addr['ip'], font=font, fill=255)
+        draw.text((x, top+16)," ", font=font, fill=255)
+        draw.text((x, top+25),"Sensor:   1   2   3", font=font, fill=255)
+        draw.text((x, top+33),"---------------------", font=font, fill=255)
+        
         #draw.text((x, top+16),    "Temp: "+str(output['temp_pin%s'%(str(PIN[0]))])+""+output['temp_scale']+" Hum "+str(output['humidity_pin%s'%(str(PIN[0]))]), font=font, fill=255)
         #draw.text((x, top+25),    "Sensor Two", font=font, fill=255)
         #draw.text((x, top+33),    "Temp: "+str(output['temp_pin%s'%(str(PIN[1]))])+""+output['temp_scale']+" Hum "+str(output['humidity_pin%s'%(str(PIN[1]))]), font=font, fill=255)
@@ -117,8 +120,8 @@ def screen_output():
         #draw.text((x, top+49),    "Temp: "+str(output['temp_pin%s'%(str(PIN[2]))])+""+output['temp_scale']+" Hum "+str(output['humidity_pin%s'%(str(PIN[2]))]), font=font, fill=255)
         
         # Display image.
-        #disp.image(image)
-        #disp.display()
+        disp.image(image)
+        disp.display()
 
 if __name__=='__main__':
     #Run the function

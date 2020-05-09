@@ -23,7 +23,7 @@ def get_nic_ip_info(nic):
 	try:
 		proc2 = subprocess.Popen("/sbin/ip route | awk '/default/ { print $3 }'", stdout=subprocess.PIPE, shell=True)
 		(output2,err2) = proc2.communicate()
-		gateway = str(output2).strip()
+		gateway = str(output2.decode('ascii').strip())
 	except Exception as e:
 		gateway = e
 
