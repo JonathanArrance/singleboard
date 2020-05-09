@@ -17,6 +17,9 @@ RST = None
 #The time interval
 INTERVAL = 1
 
+#physical network name
+PHYSNET = 'eth0'
+
 #DC = 23
 #SPI_PORT = 0
 #SPI_DEVICE = 0

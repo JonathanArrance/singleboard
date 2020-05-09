@@ -9,6 +9,7 @@ import Adafruit_GPIO.SPI as SPI
 import Adafruit_SSD1306
 import settings
 import schedule
+import pitemp_lib as plib
 
 
 from PIL import Image
@@ -48,6 +49,7 @@ def screen_output():
     #get the pins
     PIN = settings.PINS
     sensor = Adafruit_DHT.DHT11
+    ip_addr = plib.get_nic_ip_info(settings.PHYSNET)
     
     if(settings.SCALE=='Fahrenheit'):
         temp_scale = 'F'
@@ -107,7 +109,7 @@ def screen_output():
         draw.rectangle((0,0,width,height), outline=0, fill=0)
 
         draw.text((x, top),       "Time: "+dt.strftime('%H:%M:%S'), font=font, fill=255)
-        draw.text((x, top+8),     "IP: ", font=font, fill=255)
+        draw.text((x, top+8),     "IP: "+ip_addr, font=font, fill=255)
         draw.text((x, top+16),    "Temp: "+str(output['temp_pin%s'%(str(PIN[0]))])+""+output['temp_scale']+" Hum "+str(output['humidity_pin%s'%(str(PIN[0]))]), font=font, fill=255)
         draw.text((x, top+25),    "Sensor Two", font=font, fill=255)
         draw.text((x, top+33),    "Temp: "+str(output['temp_pin%s'%(str(PIN[1]))])+""+output['temp_scale']+" Hum "+str(output['humidity_pin%s'%(str(PIN[1]))]), font=font, fill=255)
