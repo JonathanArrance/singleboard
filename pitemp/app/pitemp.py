@@ -112,13 +112,13 @@ def screen_output():
         draw.text((x, top+16)," ", font=font, fill=255)
         draw.text((x, top+25),"Sensor:   1   2   3", font=font, fill=255)
         draw.text((x, top+33),"---------------------", font=font, fill=255)
-        draw.text((x, top+41),"Temp:"%(str(output['temp_pin%s'%(str(PIN[0]))])+""+output['temp_scale']),str(output['temp_pin%s'%(str(PIN[1]))])+""+output['temp_scale']),str(output['temp_pin%s'%(str(PIN[2]))])+""+output['temp_scale'])), font=font, fill=255)
+        draw.text((x, top+41),"Temp:"   str(output['temp_pin%s'%(str(PIN[0]))]+""+output['temp_scale']), font=font, fill=255)
         draw.text((x, top+25),"Humidity: %s  %s   %s", font=font, fill=255)
         #draw.text((x, top+16),    "Temp: "+str(output['temp_pin%s'%(str(PIN[0]))])+""+output['temp_scale']+" Hum "+str(output['humidity_pin%s'%(str(PIN[0]))]), font=font, fill=255)
         #draw.text((x, top+25),    "Sensor Two", font=font, fill=255)
         #draw.text((x, top+33),    "Temp: "+str(output['temp_pin%s'%(str(PIN[1]))])+""+output['temp_scale']+" Hum "+str(output['humidity_pin%s'%(str(PIN[1]))]), font=font, fill=255)
         #draw.text((x, top+41),    "Sensor Three", font=font, fill=255)
-        draw.text((x, top+49),    "Temp: "+str(output['temp_pin%s'%(str(PIN[2]))])+""+output['temp_scale']+" Hum "+str(output['humidity_pin%s'%(str(PIN[2]))]), font=font, fill=255)
+        #draw.text((x, top+49),    "Temp: "+str(output['temp_pin%s'%(str(PIN[2]))])+""+output['temp_scale']+" Hum "+str(output['humidity_pin%s'%(str(PIN[2]))]), font=font, fill=255)
         
         # Display image.
         disp.image(image)
