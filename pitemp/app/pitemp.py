@@ -105,9 +105,9 @@ def screen_output():
                 print(error.args[0])
         
         dt = datetime.datetime.now()
-        header = "{:^3}{:^3}{:^3}{:^3}"
-        temp_output = "{:^6}{:^3}{:^3}{:^3}"
-        humid_out = "{:^1}{:^3}{:^3}{:^3}"
+        header = "{0:<10}{1:<4}{2:<4}{3:<4}"
+        temp_output = "{0:<10}{1:<4}{2:<4}{3:<4}"
+        humid_out = "{0:<10}{1:<4}{2:<4}{3:<4}"
         
         # Draw a black filled box to clear the image.
         draw.rectangle((0,0,width,height), outline=0, fill=0)
