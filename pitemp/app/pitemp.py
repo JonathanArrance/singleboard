@@ -105,23 +105,20 @@ def screen_output():
                 print(error.args[0])
         
         dt = datetime.datetime.now()
-        header = "Sensor:{:^2}{:^2}{:^2}"
+        header = "{:^3}{:^3}{:^3}{:^3}"
+        temp_output = "{:^6}{:^3}{:^3}{:^3}"
+        humid_out = "{:^1}{:^3}{:^3}{:^3}"
+
         
         # Draw a black filled box to clear the image.
         draw.rectangle((0,0,width,height), outline=0, fill=0)
         draw.text((x, top),"Time: "+dt.strftime('%H:%M:%S'), font=font, fill=255)
         draw.text((x, top+8),"IP: "+ip_addr['ip'], font=font, fill=255)
         draw.text((x, top+16)," ", font=font, fill=255)
-        #draw.text((x, top+25),"Sensor:   1   2   3", font=font, fill=255)
-        draw.text((x, top+25),header.format(1,2,3), font=font, fill=255)
+        draw.text((x, top+25),header.format("Sensor: ",1,2,3), font=font, fill=255)
         draw.text((x, top+33),"---------------------", font=font, fill=255)
-        draw.text((x, top+41),"Temp "+output['temp_scale']+":"+str(int(output['temp_pin%s'%(str(PIN[0]))]))+""+str(output['temp_pin%s'%(str(PIN[1]))])+""+str(output['temp_pin%s'%(str(PIN[2]))]), font=font, fill=255)
-        draw.text((x, top+49),"Humidity: "+str(output['humidity_pin%s'%(str(PIN[0]))]), font=font, fill=255)
-        #draw.text((x, top+16),    "Temp: "+str(output['temp_pin%s'%(str(PIN[0]))])+""+output['temp_scale']+" Hum "+str(output['humidity_pin%s'%(str(PIN[0]))]), font=font, fill=255)
-        #draw.text((x, top+25),    "Sensor Two", font=font, fill=255)
-        #draw.text((x, top+33),    "Temp: "+str(output['temp_pin%s'%(str(PIN[1]))])+""+output['temp_scale']+" Hum "+str(output['humidity_pin%s'%(str(PIN[1]))]), font=font, fill=255)
-        #draw.text((x, top+41),    "Sensor Three", font=font, fill=255)
-        #draw.text((x, top+49),    "Temp: "+str(output['temp_pin%s'%(str(PIN[2]))])+""+output['temp_scale']+" Hum "+str(output['humidity_pin%s'%(str(PIN[2]))]), font=font, fill=255)
+        draw.text((x, top+41),temp_output.format("Temp "+output['temp_scale']+":",int(output['temp_pin%s'%(str(PIN[0]))]), int(output['temp_pin%s'%(str(PIN[1]))]),int(output['temp_pin%s'%(str(PIN[2]))])), font=font, fill=255)
+        draw.text((x, top+49),humid_out.format("Humidity: ",int(output['humidity_pin%s'%(str(PIN[0]))]),int(output['humidity_pin%s'%(str(PIN[1]))]),int(output['humidity_pin%s'%(str(PIN[2]))])) , font=font, fill=255)
         
         # Display image.
         disp.image(image)
