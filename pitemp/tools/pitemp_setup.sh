@@ -2,7 +2,7 @@
 sudo apt-get -y update
 sudo apt-get upgrade
 
-sudo apt-get install python3-pip
+sudo apt-get install -y python3-pip
 sudo apt install -y python3-dev
 sudo apt install -y python-imaging python-smbus i2c-tools
 sudo apt install -y python3-pil
