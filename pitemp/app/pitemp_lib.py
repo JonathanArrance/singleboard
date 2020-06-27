@@ -47,9 +47,10 @@ class pitemp():
 		return {'ip':ip,'gateway':gateway}
 
 
-	def send_mqtt(self):
+	def send_mqtt(self,input_dict):
 		#send a mesage to the MQTT broker, pub
-		
+		self.client.publish("%s/temprature","%s")
+		self.client.publish("%s/humidity","%s")
 		
 	def recieve_mqtt(self):
 		#get a message to the MQTT broker, sub 

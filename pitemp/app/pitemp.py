@@ -9,13 +9,16 @@ import Adafruit_GPIO.SPI as SPI
 import Adafruit_SSD1306
 import settings
 import schedule
-import pitemp_lib as plib
+from pitemp_lib import pitemp
 
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 
 def screen_output():
+    
+    plib = pitemp()
+
     #get the pins
     PIN = settings.PINS
     sensor = Adafruit_DHT.DHT11
@@ -89,6 +92,8 @@ def screen_output():
         draw.text((x, top+33),"---------------------", font=font, fill=255)
         draw.text((x, top+41),temp_output.format("Temp "+output['temp_scale']+":",int(output['temp_pin%s'%(str(PIN[0]))]), int(output['temp_pin%s'%(str(PIN[1]))]),int(output['temp_pin%s'%(str(PIN[2]))])), font=font, fill=255)
         draw.text((x, top+49),humid_out.format("Humidity: ",int(output['humidity_pin%s'%(str(PIN[0]))]),int(output['humidity_pin%s'%(str(PIN[1]))]),int(output['humidity_pin%s'%(str(PIN[2]))])) , font=font, fill=255)
+        
+        #send to MQTT
         
         # Display image.
         disp.image(image)
