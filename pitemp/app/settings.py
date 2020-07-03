@@ -9,6 +9,8 @@ SCALE = os.getenv('SCALE',None)
 
 #The GPIO pins to use for sensors
 PINS = os.getenv('PINS',None)
+#Take comma seperated string and turn into list so it can be used.
+PINS = PINS.split(',')
 
 #Time to sleep in seconds
 SLEEP = os.getenv('SLEEP',None)
@@ -26,6 +28,9 @@ PHYSNET = os.getenv('PHYSNET',None)
 MQTTBROKER = os.getenv('MQTTBROKER',None)
 
 MQTTPORT = os.getenv('MQTTPORT',None)
+MQTTPORT = int(MQTTPORT)
+
+SSLCERTPATH = os.getenv('SSLCERTPATH',None)
 
 SSLCERT = os.getenv('SSLCERT',None)
 
