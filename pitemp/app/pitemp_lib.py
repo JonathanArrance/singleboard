@@ -101,11 +101,11 @@ class pitemp():
 		pass
 	
 	def db_insert(self,input_dict):
-		#try:
-			#("INSERT INTO stocks VALUES ('2006-01-05','BUY','RHAT',100,35.14)")
-			#self.cursor.insert("INSERT INTO stocks VALUES ('"+input_dict['temo']+"','"+input_dict['humidity']+"','"+input_dict['scale']+"'"+input_dict['sensor']+"','"+")")
-		self.cursor.insert("INSERT INTO mqtt VALUES ('"+input_dict['temp']+"','"+input_dict['humidity']+"','"+input_dict['scale']+"','"+input_dict['sensor']+"','"+input_dict['date']+"')")
-		
+		try:
+			self.cursor.insert("INSERT INTO mqtt VALUES ('"+input_dict['temp']+"','"+input_dict['humidity']+"','"+input_dict['scale']+"','"+input_dict['sensor']+"','"+input_dict['date']+"')")
+		except Exception as e;
+			logging.error(e)
+			logging.error("Could not insert data into the database")
 	
 	def db_read():
 		pass

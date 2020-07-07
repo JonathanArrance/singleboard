@@ -5,7 +5,7 @@ import datetime
 #import multiprocessing
 #import subprocess
 import Adafruit_DHT
-import Adafruit_GPIO.SPI as SPI
+#import Adafruit_GPIO.SPI as SPI
 import Adafruit_SSD1306
 import settings
 import schedule

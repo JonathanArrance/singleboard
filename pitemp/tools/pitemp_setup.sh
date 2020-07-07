@@ -18,6 +18,7 @@ sudo pip3 install RPI.GPIO
 sudo pip3 install adafruit-blinka
 sudo pip3 install adafruit-circuitpython-dht
 sudo pip3 install schedule
+sudo pip3 install pysqlite3
 
 sudo apt install -y python-smbus
 sudo apt-get install -y libgpiod2
