@@ -105,7 +105,7 @@ def screen_output():
                 print(error.args[0])
         
         dt = datetime.datetime.now()
-        header = "Sensor:   {:^8}   {:^8}   {:^8}"
+        header = "Sensor:{:^8}{:^8}{:^8}"
         
         # Draw a black filled box to clear the image.
         draw.rectangle((0,0,width,height), outline=0, fill=0)
