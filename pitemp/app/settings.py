@@ -1,24 +1,38 @@
 #!/bin/python
+import os
+
 #DHT11 or DHT22
-SENSORTYPE='DHT11'
+SENSORTYPE = os.getenv('SENSORTYPE',None)
 
 #Celcius or Fahrenheit
-SCALE='Fahrenheit'
+SCALE = os.getenv('SCALE',None)
 
 #The GPIO pins to use for sensors
-PINS = ['24','23','4']
+PINS = os.getenv('PINS',None)
+#Take comma seperated string and turn into list so it can be used.
+PINS = PINS.split(',')
 
 #Time to sleep in seconds
-SLEEP = 2
+SLEEP = os.getenv('SLEEP',None)
 
 # on the PiOLED this pin isnt used
-RST = None
+RST = os.getenv('RST',None)
 
 #The time interval
-INTERVAL = 1
+INTERVAL = os.getenv('INTERVAL',None)
 
-#physical network name
-PHYSNET = 'wlan0'
+#physical network name wlan0 or eth0
+PHYSNET = os.getenv('PHYSNET',None)
+
+#mgtt broker host, IP or URL
+MQTTBROKER = os.getenv('MQTTBROKER',None)
+
+MQTTPORT = os.getenv('MQTTPORT',None)
+MQTTPORT = int(MQTTPORT)
+
+SSLCERTPATH = os.getenv('SSLCERTPATH',None)
+
+SSLCERT = os.getenv('SSLCERT',None)
 
 #DC = 23
 #SPI_PORT = 0

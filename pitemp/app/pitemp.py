@@ -3,49 +3,22 @@
 import time
 import datetime
 #import multiprocessing
-#mport subprocess
+#import subprocess
 import Adafruit_DHT
-import Adafruit_GPIO.SPI as SPI
+#import Adafruit_GPIO.SPI as SPI
 import Adafruit_SSD1306
 import settings
 import schedule
-import pitemp_lib as plib
-
+from pitemp_lib import pitemp
 
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 
-
-'''
-def temp_sensor():
-    #get the sensor
-    #sensor = 'Adafruit_DHT.'+settings.SENSORTYPE
-    sensor = Adafruit_DHT.DHT11
-    #Pins where DHT11 sensors connected
-    pins = settings.PINS
-
-    #lets print the output of the sensors
-    self.output = {}
-    for pin in pins:
-        try:
-            humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
-            temp_scale = 'C'
-            if(settings.SCALE == 'Fahrenheit'):
-                temperature = temperature * 9/5.0 + 32
-                temp_scale = 'F'
-            self.output['temp_pin%s'%(pin)] = temperature
-            self.output['temp_scale'] = temp_scale
-            self.output['humidity_pin%s'%(pin)] = humidity
-            #print( "Temp: {:.1f} {} Humidity: {}% ".format(temperature, temp_scale, humidity))
-        except RuntimeError as error:
-            print(error.args[0])
-    print(self.output)
-    return self.output
-'''
-
-
 def screen_output():
+    
+    plib = pitemp()
+    
     #get the pins
     PIN = settings.PINS
     sensor = Adafruit_DHT.DHT11
@@ -57,7 +30,8 @@ def screen_output():
         temp_scale = 'C'
     
     # 128x32 display with hardware I2C:
-    disp = Adafruit_SSD1306.SSD1306_128_64(rst=settings.RST)
+    #disp = Adafruit_SSD1306.SSD1306_128_64(rst=settings.RST)
+    disp = Adafruit_SSD1306.SSD1306_128_64(rst=None)
 
     # Initialize library.
     disp.begin()
@@ -100,28 +74,41 @@ def screen_output():
                 output['temp_pin%s'%(pin)] = temperature
                 output['temp_scale'] = temp_scale
                 output['humidity_pin%s'%(pin)] = humidity
-                #print( "Temp: {:.1f} {} Humidity: {}% ".format(temperature, temp_scale, humidity))
             except RuntimeError as error:
                 print(error.args[0])
-        
+
+            #send messages to the mqtt broker
+            try:
+                plib.send_mqtt({"sensor":"sensor"+pin,"temp":temperature,"humidity":humidity,"scale":temp_scale})
+            except Exception as e:
+                logging.warn("Could not connect to the mqtt broker,writing to internal datastore")
+                plib.db_insert()
+
+            #TEST#
+            #print(output)
+            #####
+
         dt = datetime.datetime.now()
+<<<<<<< HEAD
         header = "Sensor:{:^8}{:^8}{:^8}"
         
+=======
+
+        #screen string formatting
+        header = "{0:<10}{1:<4}{2:<4}{3:<4}"
+        temp_output = "{0:<10}{1:<4}{2:<4}{3:<4}"
+        humid_out = "{0:<10}{1:<4}{2:<4}{3:<4}"
+
+>>>>>>> f759a99915b21c614f2a350a54fcdb0dc0fe4d3e
         # Draw a black filled box to clear the image.
         draw.rectangle((0,0,width,height), outline=0, fill=0)
         draw.text((x, top),"Time: "+dt.strftime('%H:%M:%S'), font=font, fill=255)
         draw.text((x, top+8),"IP: "+ip_addr['ip'], font=font, fill=255)
         draw.text((x, top+16)," ", font=font, fill=255)
-        #draw.text((x, top+25),"Sensor:   1   2   3", font=font, fill=255)
-        draw.text((x, top+25),header.format(1,2,3), font=font, fill=255)
+        draw.text((x, top+25),header.format("Sensor: ",1,2,3), font=font, fill=255)
         draw.text((x, top+33),"---------------------", font=font, fill=255)
-        draw.text((x, top+41),"Temp "+output['temp_scale']+":"+str(output['temp_pin%s'%(str(PIN[0]))])+""+str(output['temp_pin%s'%(str(PIN[1]))])+""+str(output['temp_pin%s'%(str(PIN[2]))]), font=font, fill=255)
-        draw.text((x, top+49),"Humidity: "+str(output['humidity_pin%s'%(str(PIN[0]))]), font=font, fill=255)
-        #draw.text((x, top+16),    "Temp: "+str(output['temp_pin%s'%(str(PIN[0]))])+""+output['temp_scale']+" Hum "+str(output['humidity_pin%s'%(str(PIN[0]))]), font=font, fill=255)
-        #draw.text((x, top+25),    "Sensor Two", font=font, fill=255)
-        #draw.text((x, top+33),    "Temp: "+str(output['temp_pin%s'%(str(PIN[1]))])+""+output['temp_scale']+" Hum "+str(output['humidity_pin%s'%(str(PIN[1]))]), font=font, fill=255)
-        #draw.text((x, top+41),    "Sensor Three", font=font, fill=255)
-        #draw.text((x, top+49),    "Temp: "+str(output['temp_pin%s'%(str(PIN[2]))])+""+output['temp_scale']+" Hum "+str(output['humidity_pin%s'%(str(PIN[2]))]), font=font, fill=255)
+        draw.text((x, top+41),temp_output.format("Temp "+output['temp_scale']+":",int(output['temp_pin%s'%(str(PIN[0]))]), int(output['temp_pin%s'%(str(PIN[1]))]),int(output['temp_pin%s'%(str(PIN[2]))])), font=font, fill=255)
+        draw.text((x, top+49),humid_out.format("Humidity: ",int(output['humidity_pin%s'%(str(PIN[0]))]),int(output['humidity_pin%s'%(str(PIN[1]))]),int(output['humidity_pin%s'%(str(PIN[2]))])) , font=font, fill=255)
         
         # Display image.
         disp.image(image)
@@ -130,4 +117,3 @@ def screen_output():
 if __name__=='__main__':
     #Run the function
     schedule.every(settings.INTERVAL).seconds.do(screen_output())
-
